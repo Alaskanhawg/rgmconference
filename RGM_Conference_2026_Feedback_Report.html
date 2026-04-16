@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RGM Conference 2026 — Feedback Report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a18; line-height: 1.6; padding: 2rem 1rem; }
+  .page { max-width: 820px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
+  .report-header { margin-bottom: 2rem; border-bottom: 0.5px solid #ddd; padding-bottom: 1.5rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .report-header h1 { font-size: 22px; font-weight: 500; color: #1a1a18; margin-bottom: 4px; }
+  .report-header p { font-size: 13px; color: #888; }
+  .year-badge { background: #ddeaf7; color: #185FA5; font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; white-space: nowrap; align-self: flex-start; margin-top: 4px; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin: 0 0 10px; }
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .metric-card { background: #f5f4f0; border-radius: 8px; padding: 14px 16px; }
+  .metric-label { font-size: 12px; color: #666; margin: 0 0 4px; }
+  .metric-val { font-size: 26px; font-weight: 500; color: #1a1a18; margin: 0; line-height: 1.1; }
+  .metric-sub { font-size: 11px; color: #aaa; margin: 2px 0 0; }
+  .chart-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .chart-title { font-size: 14px; font-weight: 500; color: #1a1a18; margin: 0 0 12px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .bar-label { font-size: 12px; color: #666; width: 200px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; background: #f0efeb; border-radius: 3px; height: 10px; }
+  .bar-fill { height: 10px; border-radius: 3px; }
+  .bar-val { font-size: 12px; font-weight: 500; color: #666; min-width: 28px; text-align: right; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+  .donut-wrap { display: flex; align-items: center; gap: 20px; }
+  .donut-legend { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .legend-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #666; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .divider { border: none; border-top: 0.5px solid #e8e8e4; margin: 1.5rem 0; }
+  .tab-bar { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .tab-btn { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid #ccc; background: transparent; color: #666; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+  .tab-btn:hover { background: #f0efeb; }
+  .tab-btn.active { background: #ddeaf7; color: #185FA5; border-color: transparent; font-weight: 500; }
+  .quote-list { display: flex; flex-direction: column; gap: 8px; }
+  .quote-item { background: #f5f4f0; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #1a1a18; line-height: 1.6; }
+  .quote-category { font-size: 10px; font-weight: 500; color: #aaa; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .highlight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+  .highlight-card { background: #f5f4f0; border-radius: 8px; padding: 12px 14px; }
+  .highlight-title { font-size: 11px; font-weight: 500; color: #aaa; margin: 0 0 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .highlight-text { font-size: 13px; color: #1a1a18; line-height: 1.5; margin: 0; }
+  .note-banner { background: #fff8ec; border: 0.5px solid #f0d080; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #7a5c00; margin-bottom: 1rem; }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 0.5px solid #e8e8e4; font-size: 12px; color: #aaa; text-align: center; }
+  @media (max-width: 540px) {
+    .two-col { grid-template-columns: 1fr; }
+    .highlight-grid { grid-template-columns: 1fr; }
+    .bar-label { width: 120px; }
+    .page { padding: 1.5rem 1rem; }
+    .report-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-header">
+    <div>
+      <h1>RGM Conference — Feedback Report</h1>
+      <p>12 anonymous respondents &nbsp;·&nbsp; All ratings on a 1–5 scale</p>
+    </div>
+    <span class="year-badge">2026</span>
+  </div>
+
+  <div class="note-banner">
+    One respondent gave all 3s across every category — included in all averages as recorded.
+  </div>
+
+  <p class="section-label">At a glance</p>
+  <div class="metric-grid">
+    <div class="metric-card">
+      <p class="metric-label">Respondents</p>
+      <p class="metric-val">12</p>
+      <p class="metric-sub">100% anonymous</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Overall experience</p>
+      <p class="metric-val">4.75<span style="font-size:14px;color:#aaa">/5</span></p>
+      <p class="metric-sub">avg rating</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Role relevance</p>
+      <p class="metric-val">4.75<span style="font-size:14px;color:#aaa">/5</span></p>
+      <p class="metric-sub">avg rating</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Awards dinner</p>
+      <p class="metric-val">4.58<span style="font-size:14px;color:#aaa">/5</span></p>
+      <p class="metric-sub">avg rating</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Karaoke afterparty</p>
+      <p class="metric-val">4.82<span style="font-size:14px;color:#aaa">/5</span></p>
+      <p class="metric-sub">avg (all respondents)</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="chart-card">
+    <p class="chart-title">Average ratings by category</p>
+    <div id="ratings-bars"></div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card" style="margin-bottom:0">
+      <p class="chart-title">Most valuable breakout</p>
+      <div class="donut-wrap">
+        <canvas id="donutChart" width="110" height="110" role="img" aria-label="Donut chart: All Equally 50%, Financials 33%, Guest Phanatics 17%">All Equally 50%, Financials 33%, Guest Phanatics 17%.</canvas>
+        <div class="donut-legend">
+          <div class="legend-row"><span class="legend-dot" style="background:#1D9E75"></span>All equally — 50%</div>
+          <div class="legend-row"><span class="legend-dot" style="background:#185FA5"></span>Financials — 33%</div>
+          <div class="legend-row"><span class="legend-dot" style="background:#BA7517"></span>Guest Phanatics — 17%</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <p class="chart-title">Afterparty peer connection</p>
+      <div id="connect-bars"></div>
+    </div>
+  </div>
+
+  <div class="chart-card" style="margin-top:10px">
+    <p class="chart-title">Plus-one experience</p>
+    <div id="plusone-bars"></div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-label">Open-ended responses</p>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('fav')">Favorite parts</button>
+    <button class="tab-btn" onclick="showTab('improve')">Improvements</button>
+    <button class="tab-btn" onclick="showTab('topics')">Suggested topics</button>
+    <button class="tab-btn" onclick="showTab('other')">Other comments</button>
+  </div>
+
+  <div id="tab-fav" class="quote-list">
+    <div class="quote-item">"I honestly enjoyed every bit of it, but the after party was a lot of fun"</div>
+    <div class="quote-item">"Recognition" — the experience of being recognized stood out</div>
+    <div class="quote-item">"The dinner" — multiple respondents cited the awards dinner as a top highlight</div>
+    <div class="quote-item">"Watching everyone sing" — the karaoke atmosphere was memorable</div>
+    <div class="quote-item">"The award ceremony"</div>
+    <div class="quote-item">"Getting together with everyone from other areas"</div>
+    <div class="quote-item">"Being able to have my spouse there. A dancing area would have been nice."</div>
+    <div class="quote-item">"The breakouts with different RGMs from different stores" — cross-store networking</div>
+    <div class="quote-item">"The learning — ways to improve my store"</div>
+  </div>
+
+  <div id="tab-improve" class="quote-list" style="display:none">
+    <div class="quote-item">"More activities at the after party — short team game for breakouts"</div>
+    <div class="quote-item">"The food" (at karaoke/afterparty venue)</div>
+    <div class="quote-item">"Longer break out sessions"</div>
+    <div class="quote-item">"More time, another day" — extend the conference to two days</div>
+    <div class="quote-item">"Room for a dance floor. A more formal atmosphere."</div>
+    <div class="quote-item">"Classes earlier in the day with a break before dinner for either a nap or exploration of Branson"</div>
+    <div class="quote-item">"More interaction with other stores"</div>
+    <div class="quote-item">"Nothing. Everyone was very entertaining and fun to be around."</div>
+  </div>
+
+  <div id="tab-topics" class="quote-list" style="display:none">
+    <div class="quote-item"><div class="quote-category">Financials & P&L</div>"Discounts and more in depth on how Win Score affects the period"</div>
+    <div class="quote-item"><div class="quote-category">Financials & P&L</div>"More P&L break out sessions in greater detail"</div>
+    <div class="quote-item"><div class="quote-category">Financials & P&L</div>"I'm interested in learning more about the P&L"</div>
+    <div class="quote-item"><div class="quote-category">Technology</div>"Power BI" — data analytics and reporting tools</div>
+    <div class="quote-item"><div class="quote-category">Career development</div>"Career advancement"</div>
+    <div class="quote-item"><div class="quote-category">Hiring & scheduling</div>"Scheduling and hiring"</div>
+    <div class="quote-item"><div class="quote-category">HR / interviews</div>"Interview questions and guides"</div>
+  </div>
+
+  <div id="tab-other" class="quote-list" style="display:none">
+    <div class="quote-item">"Awesome!"</div>
+    <div class="quote-item">"Thank you for the experience"</div>
+    <div class="quote-item">"Thank You" — multiple respondents expressed gratitude unprompted</div>
+    <div class="quote-item">"N/A Had to leave a bit early due to schedule. Overall while there was great!"</div>
+    <div class="quote-item">"No" / "N/A" — several respondents had no additional comments, indicating strong satisfaction</div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-label">Key takeaways</p>
+  <div class="highlight-grid">
+    <div class="highlight-card">
+      <p class="highlight-title">Biggest strength</p>
+      <p class="highlight-text">All three breakout sessions scored 4.83/5. Peer networking, the awards dinner, and the karaoke afterparty were the most praised moments.</p>
+    </div>
+    <div class="highlight-card">
+      <p class="highlight-title">Top opportunity</p>
+      <p class="highlight-text">Food & beverage (3.92) and venue (4.45) are the lowest-rated categories. A dance floor and extended event duration were the most common requests.</p>
+    </div>
+    <div class="highlight-card">
+      <p class="highlight-title">Content demand</p>
+      <p class="highlight-text">P&L and Financials remain the #1 requested future topic. Power BI, career advancement, and hiring/scheduling are also in strong demand.</p>
+    </div>
+    <div class="highlight-card">
+      <p class="highlight-title">Plus-one & afterparty</p>
+      <p class="highlight-text">7 of 12 said bringing a plus-one enhanced their experience. Of afterparty attendees, all reported connecting with peers from other stores.</p>
+    </div>
+  </div>
+
+  <div class="footer">RGM Conference 2026 &nbsp;·&nbsp; Feedback Survey Report &nbsp;·&nbsp; 12 respondents</div>
+</div>
+
+<script>
+function makeBar(containerId, items, color) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = items.map(i => `
+    <div class="bar-row">
+      <span class="bar-label">${i.label}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(i.val/5)*100}%;background:${color}"></div></div>
+      <span class="bar-val">${i.val.toFixed(2)}</span>
+    </div>`).join('');
+}
+
+makeBar('ratings-bars', [
+  {label:'Overall experience', val:4.75},
+  {label:'Role relevance (RGM)', val:4.75},
+  {label:'Flow & pacing', val:4.67},
+  {label:'People breakout', val:4.83},
+  {label:'Guest Phanatics breakout', val:4.83},
+  {label:'Financials breakout', val:4.83},
+  {label:'Venue & facilities', val:4.45},
+  {label:'Organization & comms', val:4.75},
+  {label:'Awards dinner experience', val:4.58},
+  {label:'Dinner setting & atmosphere', val:4.50},
+  {label:'Food & beverage', val:3.92},
+  {label:'Karaoke afterparty', val:4.82},
+], '#185FA5');
+
+makeBar('connect-bars', [
+  {label:'Yes', val: parseFloat((5*(6/12)).toFixed(2))},
+  {label:'Somewhat', val: parseFloat((5*(4/12)).toFixed(2))},
+  {label:"Didn't attend", val: parseFloat((5*(2/12)).toFixed(2))},
+], '#1D9E75');
+
+makeBar('plusone-bars', [
+  {label:'Yes — enhanced experience', val: parseFloat((5*(7/12)).toFixed(2))},
+  {label:"Didn't bring a plus one", val: parseFloat((5*(4/12)).toFixed(2))},
+  {label:'Somewhat', val: parseFloat((5*(1/12)).toFixed(2))},
+], '#BA7517');
+
+new Chart(document.getElementById('donutChart').getContext('2d'), {
+  type: 'doughnut',
+  data: {
+    labels: ['All Equally','Financials','Guest Phanatics'],
+    datasets: [{
+      data: [6, 4, 2],
+      backgroundColor: ['#1D9E75','#185FA5','#BA7517'],
+      borderWidth: 0,
+      hoverOffset: 3
+    }]
+  },
+  options: {
+    responsive: false,
+    cutout: '60%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${Math.round(ctx.raw/12*100)}%` } }
+    }
+  }
+});
+
+function showTab(name) {
+  ['fav','improve','topics','other'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === name ? 'flex' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', ['fav','improve','topics','other'][i] === name);
+  });
+}
+</script>
+</body>
+</html>
